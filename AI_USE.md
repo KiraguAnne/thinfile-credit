@@ -19,7 +19,7 @@
 | API | AI wrote the FastAPI service and its request/response schemas. |
 | Tests | AI wrote the unit and API contract tests. |
 | Analysis & report | AI ran the pipeline, proposed the follow-up experiments (splitting set C into bureau history vs. external scores; retraining without age), summarised results and drafted the report text. |
-| Walkthrough notebook | AI wrote `notebooks/capstone_notebook.ipynb` (and the script that generates it) following the flow of the course's class-practical notebook, at my request. AI also proposed the behaviour-vs-bureau head-to-head test and the confusion matrix, added to both the notebook and the pipeline. |
+| Walkthrough notebook | AI AI wrote the first version of notebooks/capstone_notebook.ipynb following the flow of the course's class-practical notebook, at my request. AI also proposed the behaviour-vs-bureau head-to-head test and the confusion matrix, added to both the notebook and the pipeline. |
 | Debugging | AI found and fixed two leaks during the build (a blank-field count that revealed bureau status to set A, and a training/serving skew in the same feature), and a reproducibility bug where parallel aggregation changed row order and therefore the train/test split. All are described in the report or README. |
 
 ## Design decisions I reviewed and own

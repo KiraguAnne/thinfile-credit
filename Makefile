@@ -25,8 +25,7 @@ train:          ## CV + refit: 3 feature sets x {scorecard, lightgbm}
 evaluate:       ## test-set metrics, uplift tests, fairness, figures -> reports/
 	$(PY) -m thinfile.evaluate
 
-notebook:       ## build + execute the walkthrough notebook (~12 min, ~3.5 GB RAM) and export an HTML copy
-	$(PY) scripts/build_notebook.py
+notebook:       ## run the walkthrough notebook (~12 min, ~3.5 GB RAM) and export an HTML copy
 	cd notebooks && jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=3600 capstone_notebook.ipynb
 	cd notebooks && jupyter nbconvert --to html capstone_notebook.ipynb
 

@@ -81,8 +81,8 @@ terms → limitations.
 It is self-contained (plain pandas and scikit-learn, no project package), reads the CSVs from
 `data/raw/`, and runs in about 12 minutes with ~3.5 GB of RAM. Its feature code is simpler than the
 pipeline's, so its AUCs differ from the table above in the second or third decimal; the conclusions
-are the same. `make notebook` regenerates it from `scripts/build_notebook.py`, executes it and writes
-an HTML copy. Opening and running it directly in VS Code or Jupyter works too.
+are the same. Open and run it in VS Code or Jupyter; `make notebook` runs it from the command line
+and writes an HTML copy.
 
 ## Architecture
 
@@ -133,7 +133,6 @@ artifacts/models/            trained models (committed so the image builds witho
 reports/                     metrics tables, figures, final report
 examples/                    sample API requests built from real test-split applicants
 notebooks/                   capstone_notebook.ipynb: the readable walkthrough (+ HTML export)
-scripts/build_notebook.py    generates the walkthrough notebook
 scripts/make_examples.py     builds the example API requests
 ```
 
@@ -155,7 +154,7 @@ kaggle competitions download -c home-credit-default-risk -p data/raw && unzip da
 
 make all        # ingest → features → audit → train → evaluate
 make test       # 16 tests, no data needed
-make notebook   # optional: rebuild and run the walkthrough notebook (~12 min)
+make notebook   # optional: run the walkthrough notebook (~12 min)
 make monitor    # optional: PSI drift check on a simulated thin-file-heavy batch
 ```
 
