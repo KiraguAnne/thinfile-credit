@@ -1,0 +1,10 @@
+data/
+mlruns/
+mlflow.db
+mlartifacts/
+artifacts/predictions/
+reports/
+tests/
+.git/
+.venv/
+**/__pycache__

@@ -1,0 +1,23 @@
+{
+ "thin_file_predictability": {
+  "A": 0.6527,
+  "B": 0.6728
+ },
+ "flagged_proxies": {
+  "A": {},
+  "B": {}
+ },
+ "target_univariate_top10": {
+  "EXT_SOURCE_3": 0.6794,
+  "EXT_SOURCE_1": 0.6657,
+  "EXT_SOURCE_2": 0.6561,
+  "CC_UTIL_MAX_3M": 0.6546,
+  "CC_UTIL_MAX_6M": 0.6545,
+  "CC_UTIL_MAX_12M": 0.6506,
+  "CC_UTIL_MEAN_3M": 0.6496,
+  "CC_UTIL_MEAN_6M": 0.6439,
+  "CC_UTIL_MEAN_12M": 0.6386,
+  "CC_UTIL_MEAN_ALL": 0.6287
+ },
+ "target_univariate_max": 0.6794
+}

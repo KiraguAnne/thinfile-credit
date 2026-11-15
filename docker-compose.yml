@@ -1,0 +1,24 @@
+services:
+  api:
+    build:
+      context: .
+      args:
+        BASE_IMAGE: ${BASE_IMAGE:-python:3.13-slim}
+        APT_PACKAGES: ${APT_PACKAGES-libgomp1}
+    image: thinfile-credit-api:latest
+    ports:
+      - "8000:8000"
+    environment:
+      MODEL_PATH: /app/artifacts/models/${MODEL_NAME:-lgbm_C}.joblib
+    restart: unless-stopped
+
+  # Optional experiment-tracking UI over the runs logged during training:
+  #   docker compose --profile tracking up mlflow
+  mlflow:
+    profiles: ["tracking"]
+    image: ghcr.io/mlflow/mlflow:v3.17.2
+    command: mlflow ui --backend-store-uri sqlite:////mlflow/mlflow.db --host 0.0.0.0 --port 5000
+    volumes:
+      - ./mlflow.db:/mlflow/mlflow.db
+    ports:
+      - "5000:5000"

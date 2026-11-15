@@ -1,0 +1,15 @@
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+mlflow.db
+mlruns/
+mlartifacts/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+artifacts/predictions/
+artifacts/train.log
+artifacts/notebook_model.joblib
+notebooks/.ipynb_checkpoints/

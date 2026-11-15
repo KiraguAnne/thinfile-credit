@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Unit + API contract tests (synthetic data, no Kaggle download needed)
+        run: python -m pytest -q
+
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build serving image
+        run: docker compose build api
+      - name: Smoke-test the running container
+        run: |
+          docker compose up -d api
+          for i in $(seq 1 30); do curl -sf localhost:8000/health && break; sleep 2; done
+          curl -sf -X POST localhost:8000/score -H 'Content-Type: application/json' \
+               -d @examples/thin_file_applicant.json | tee response.json
+          python3 -c "import json; r=json.load(open('response.json')); assert r['decision'] in ('approve','review','decline')"
+          docker compose down

@@ -1,0 +1,9 @@
+population,actual,decision,n,per_1000
+all,repaid,approved,50114,814.8220412012422
+all,repaid,declined,6424,104.45018942165423
+all,defaulted,approved,2686,43.67266637399802
+all,defaulted,declined,2279,37.05510300310554
+thin,repaid,approved,6606,750.3407542026351
+thin,repaid,declined,1307,148.4552476147206
+thin,defaulted,approved,416,47.25124943207633
+thin,defaulted,declined,475,53.95274875056792

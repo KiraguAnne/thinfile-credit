@@ -1,0 +1,78 @@
+# Single source of truth for the pipeline. Every script reads this file.
+seed: 42
+
+paths:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  artifacts_dir: artifacts
+  reports_dir: reports
+  mlflow_uri: sqlite:///mlflow.db
+
+# Raw tables. "required: false" tables are skipped (features left missing) if absent,
+# so the pipeline still runs end-to-end on application data alone.
+tables:
+  application: {file: application_train.csv, required: true}
+  previous_application: {file: previous_application.csv, required: false}
+  installments: {file: installments_payments.csv, required: false}
+  pos_cash: {file: POS_CASH_balance.csv, required: false}
+  credit_card: {file: credit_card_balance.csv, required: false}
+  bureau: {file: bureau.csv, required: false}
+  bureau_balance: {file: bureau_balance.csv, required: false}
+
+# Behavioural look-back windows (relative to the application date).
+windows_months: [3, 6, 12]
+
+# Nested feature sets used to isolate the value of alternative data.
+#   A = application form only (what a thin-file lender always has)
+#   B = A + repayment behaviour from Home Credit's own transaction records (alternative data)
+#   C = B + credit-bureau data and bureau-derived external scores
+feature_sets: [A, B, C]
+# Sensitivity sets (LightGBM only): split set C's gain into bureau history vs. external scores.
+#   A_bureau: form + bureau history only -> head-to-head with B (form + behaviour) on applicants with both
+sensitivity_sets: [B_ext, C_noext, A_bureau, C_noage]  # C_noage: fairness check without age
+
+# Columns never used as model inputs.
+#   CODE_GENDER: protected attribute -> audited for fairness, not modelled on.
+excluded_features: [SK_ID_CURR, TARGET, CODE_GENDER]
+
+split:
+  test_size: 0.20
+  n_folds: 5
+
+lgbm:
+  n_estimators: 5000
+  learning_rate: 0.05
+  num_leaves: 31
+  min_child_samples: 100
+  subsample: 0.8
+  subsample_freq: 1
+  colsample_bytree: 0.5
+  reg_lambda: 5.0
+  early_stopping_rounds: 200
+  deterministic: true     # bit-identical results across runs on the same machine
+  force_col_wise: true
+
+scorecard:
+  max_bins: 8
+  min_bin_frac: 0.05
+  min_iv: 0.02
+  max_corr: 0.75
+  C: 0.1
+  # Score scaling: 600 points at 50:1 good:bad odds, 20 points to double the odds.
+  base_score: 600
+  base_odds: 50
+  pdo: 20
+
+decision:
+  # Approving a defaulter costs ~5x more than turning away a good applicant
+  # (lost principal vs lost margin). Threshold minimises expected cost on OOF predictions.
+  cost_fn: 5.0
+  cost_fp: 1.0
+  review_band: 0.25  # PDs within +/-25% of the threshold go to manual review (~10% of applicants)
+
+fairness:
+  groups: [CODE_GENDER, AGE_BAND, NAME_EDUCATION_TYPE]
+
+serving:
+  model_set: C
+  model_type: lgbm

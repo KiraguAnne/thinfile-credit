@@ -1,0 +1,237 @@
+{
+ "serving_model": "lgbm_C",
+ "threshold": 0.15193306948967736,
+ "decision_oof": {
+  "threshold": 0.15193306948967736,
+  "expected_cost": 0.31731081916035253,
+  "approval_rate": 0.8600004877890151,
+  "default_rate_approved": 0.05000779894785103,
+  "recall_defaulters": 0.46727089627391744,
+  "baseline_cost_approve_all": 0.4036454099053689
+ },
+ "headline": {
+  "all": {
+   "A": 0.7168,
+   "A_bureau": 0.7461,
+   "B": 0.7471,
+   "B_ext": 0.7806,
+   "C": 0.7863,
+   "C_noage": 0.7851,
+   "C_noext": 0.7634
+  },
+  "thick": {
+   "A": 0.7151,
+   "A_bureau": 0.7494,
+   "B": 0.743,
+   "B_ext": 0.7799,
+   "C": 0.7868,
+   "C_noage": 0.7861,
+   "C_noext": 0.7636
+  },
+  "thin": {
+   "A": 0.7155,
+   "A_bureau": 0.7164,
+   "B": 0.7599,
+   "B_ext": 0.7773,
+   "C": 0.7761,
+   "C_noage": 0.7722,
+   "C_noext": 0.7551
+  }
+ },
+ "shap_top": {
+  "lgbm_C_all": {
+   "EXT_SOURCE_2": 0.3069,
+   "EXT_SOURCE_3": 0.2513,
+   "EXT_SOURCE_1": 0.1581,
+   "POS_FUTURE_INST_SUM": 0.1125,
+   "CREDIT_TO_GOODS": 0.1003,
+   "ANNUITY_TO_CREDIT": 0.0964,
+   "AMT_ANNUITY": 0.0959,
+   "ORGANIZATION_TYPE": 0.0879,
+   "OCCUPATION_TYPE": 0.07,
+   "BUR_ACTIVE_DEBT_RATIO": 0.0672,
+   "BUR_CLOSED_SHARE": 0.066,
+   "NAME_EDUCATION_TYPE": 0.0657,
+   "NAME_FAMILY_STATUS": 0.0657,
+   "PREV_CREDIT_TO_ASK_MEAN": 0.065,
+   "OWN_CAR_AGE": 0.0614
+  },
+  "lgbm_C_thin": {
+   "EXT_SOURCE_2": 0.3523,
+   "EXT_SOURCE_1": 0.1653,
+   "ANNUITY_TO_CREDIT": 0.1113,
+   "POS_FUTURE_INST_SUM": 0.1085,
+   "CREDIT_TO_GOODS": 0.1038,
+   "AMT_ANNUITY": 0.0969,
+   "ORGANIZATION_TYPE": 0.0809,
+   "NAME_FAMILY_STATUS": 0.0756,
+   "NAME_EDUCATION_TYPE": 0.0725,
+   "BUR_CLOSED_SHARE": 0.0706,
+   "POS_N_MONTHS_ALL": 0.07,
+   "OCCUPATION_TYPE": 0.0693,
+   "PREV_CREDIT_TO_ASK_MEAN": 0.0643,
+   "PREV_REFUSED_RATE": 0.0612,
+   "OWN_CAR_AGE": 0.0562
+  },
+  "lgbm_B_all": {
+   "CREDIT_TO_GOODS": 0.1302,
+   "ANNUITY_TO_CREDIT": 0.1196,
+   "DAYS_BIRTH": 0.1043,
+   "OCCUPATION_TYPE": 0.1028,
+   "POS_FUTURE_INST_SUM": 0.0996,
+   "PREV_CREDIT_TO_ASK_MEAN": 0.0957,
+   "NAME_EDUCATION_TYPE": 0.0936,
+   "ORGANIZATION_TYPE": 0.0905,
+   "PREV_REFUSED_RATE": 0.0838,
+   "AMT_ANNUITY": 0.0822,
+   "DAYS_EMPLOYED": 0.075,
+   "DAYS_LAST_PHONE_CHANGE": 0.0686,
+   "OWN_CAR_AGE": 0.0679,
+   "REGION_POPULATION_RELATIVE": 0.0651,
+   "POS_N_MONTHS_ALL": 0.0642
+  },
+  "lgbm_B_thin": {
+   "CREDIT_TO_GOODS": 0.1292,
+   "ANNUITY_TO_CREDIT": 0.1245,
+   "DAYS_BIRTH": 0.1097,
+   "OCCUPATION_TYPE": 0.1054,
+   "POS_FUTURE_INST_SUM": 0.0999,
+   "PREV_CREDIT_TO_ASK_MEAN": 0.0952,
+   "NAME_EDUCATION_TYPE": 0.0914,
+   "ORGANIZATION_TYPE": 0.0864,
+   "AMT_ANNUITY": 0.0816,
+   "PREV_REFUSED_RATE": 0.0794,
+   "DAYS_EMPLOYED": 0.0774,
+   "DAYS_ID_PUBLISH": 0.0711,
+   "DAYS_LAST_PHONE_CHANGE": 0.0708,
+   "POS_N_MONTHS_ALL": 0.0684,
+   "AGE_YEARS": 0.0654
+  }
+ },
+ "confusion_matrix": [
+  {
+   "population": "all",
+   "actual": "repaid",
+   "decision": "approved",
+   "n": 50114,
+   "per_1000": 814.8220412012422
+  },
+  {
+   "population": "all",
+   "actual": "repaid",
+   "decision": "declined",
+   "n": 6424,
+   "per_1000": 104.45018942165423
+  },
+  {
+   "population": "all",
+   "actual": "defaulted",
+   "decision": "approved",
+   "n": 2686,
+   "per_1000": 43.67266637399802
+  },
+  {
+   "population": "all",
+   "actual": "defaulted",
+   "decision": "declined",
+   "n": 2279,
+   "per_1000": 37.05510300310554
+  },
+  {
+   "population": "thin",
+   "actual": "repaid",
+   "decision": "approved",
+   "n": 6606,
+   "per_1000": 750.3407542026351
+  },
+  {
+   "population": "thin",
+   "actual": "repaid",
+   "decision": "declined",
+   "n": 1307,
+   "per_1000": 148.4552476147206
+  },
+  {
+   "population": "thin",
+   "actual": "defaulted",
+   "decision": "approved",
+   "n": 416,
+   "per_1000": 47.25124943207633
+  },
+  {
+   "population": "thin",
+   "actual": "defaulted",
+   "decision": "declined",
+   "n": 475,
+   "per_1000": 53.95274875056792
+  }
+ ],
+ "head_to_head": [
+  {
+   "row": "auc",
+   "comparison": "Application form only",
+   "model": "lgbm_A",
+   "n": 50004,
+   "value": 0.7137723726534415,
+   "ci_low": 0.7052490909499298,
+   "ci_high": 0.7224367460925022,
+   "diff": NaN,
+   "p_le_0": NaN
+  },
+  {
+   "row": "auc",
+   "comparison": "Form + behaviour",
+   "model": "lgbm_B",
+   "n": 50004,
+   "value": 0.7427610361166368,
+   "ci_low": 0.7347908200174748,
+   "ci_high": 0.7515746731260153,
+   "diff": NaN,
+   "p_le_0": NaN
+  },
+  {
+   "row": "auc",
+   "comparison": "Form + bureau history",
+   "model": "lgbm_A_bureau",
+   "n": 50004,
+   "value": 0.7475299798095933,
+   "ci_low": 0.7391756309577485,
+   "ci_high": 0.7559543194286189,
+   "diff": NaN,
+   "p_le_0": NaN
+  },
+  {
+   "row": "auc",
+   "comparison": "Form + behaviour + bureau history",
+   "model": "lgbm_C_noext",
+   "n": 50004,
+   "value": 0.7622637658901525,
+   "ci_low": 0.7551125305445499,
+   "ci_high": 0.7702047417522068,
+   "diff": NaN,
+   "p_le_0": NaN
+  },
+  {
+   "row": "difference",
+   "comparison": "behaviour minus bureau history",
+   "model": "lgbm_B - lgbm_A_bureau",
+   "n": 50004,
+   "value": NaN,
+   "ci_low": -0.01098450081111709,
+   "ci_high": 0.002051545725547621,
+   "diff": -0.004768943692956551,
+   "p_le_0": 0.926
+  },
+  {
+   "row": "difference",
+   "comparison": "bureau history added to behaviour",
+   "model": "lgbm_C_noext - lgbm_B",
+   "n": 50004,
+   "value": NaN,
+   "ci_low": 0.015417429070569016,
+   "ci_high": 0.024009994553044346,
+   "diff": 0.019502729773515748,
+   "p_le_0": 0.0
+  }
+ ]
+}

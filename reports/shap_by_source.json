@@ -1,0 +1,32 @@
+{
+ "lgbm_B_all": {
+  "Application": 0.5926,
+  "Behavioural": 0.4074
+ },
+ "lgbm_B_thin": {
+  "Application": 0.5945,
+  "Behavioural": 0.4055
+ },
+ "lgbm_B_thick": {
+  "Application": 0.5929,
+  "Behavioural": 0.4071
+ },
+ "lgbm_C_all": {
+  "Application": 0.395,
+  "Behavioural": 0.2916,
+  "Bureau history": 0.1213,
+  "External scores": 0.1921
+ },
+ "lgbm_C_thin": {
+  "Application": 0.4322,
+  "Behavioural": 0.3368,
+  "Bureau history": 0.0708,
+  "External scores": 0.1602
+ },
+ "lgbm_C_thick": {
+  "Application": 0.3893,
+  "Behavioural": 0.2846,
+  "Bureau history": 0.1291,
+  "External scores": 0.1971
+ }
+}
