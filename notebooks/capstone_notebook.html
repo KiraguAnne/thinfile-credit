@@ -11269,7 +11269,7 @@ Scorecard, thin-file A -&gt; B       : +0.031 (95% CI +0.019 to +0.041)
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
 <li><strong>Observed:</strong> for thin-file applicants, adding repayment behaviour improves ranking clearly (the interval is well above zero).</li>
-<li><strong>Interpretation:</strong> Home Credit's own repayment records do for thin-file applicants much of what a bureau record does for everyone else (tested directly below). Thin-file applicants have no bureau loans, so set C can only help them through the external scores (<code>EXT_SOURCE</code>), which a lender would have to buy and cannot inspect. That gain (+0.011) is a quarter of what bureau data adds for everyone else (+0.044).</li>
+<li><strong>Interpretation:</strong> for thin-file applicants who have borrowed from Home Credit before, its repayment records do much of what a bureau record does for everyone else (tested directly below). Thin-file applicants have no bureau loans, so set C can only help them through the external scores (<code>EXT_SOURCE</code>), which a lender would have to buy and cannot inspect. That gain (+0.011) is a quarter of what bureau data adds for everyone else (+0.044).</li>
 <li><strong>The finding does not depend on the model:</strong> the simple WoE scorecard shows the same thin-file gain from behaviour (+0.031) as LightGBM (+0.033).</li>
 <li><strong>Simple vs complex:</strong> LightGBM ranks better than the scorecard on every set, by 0.03-0.06 AUC (thin-file, set B: 0.767 vs 0.710). The scorecard's 5 bins per feature and straight-line combination cannot capture how features combine, so the extra complexity of LightGBM earns its place. The scorecard is kept as the <strong>transparent fallback</strong>: every applicant's score is a sum of points a loan officer can check by hand.</li>
 </ul>
@@ -11348,7 +11348,7 @@ Adding bureau records to behaviour  : +0.016 (95% CI +0.012 to +0.020)
 <ul>
 <li><strong>Observed:</strong> on the same 50,023 people, behaviour alone (0.745) ranks risk <strong>about as well as</strong> bureau records alone (0.740). The difference, +0.006, is too small to call a winner (its interval includes zero). The pipeline, with fuller features, finds the same tie the other way round (0.743 vs 0.748, also not significant).</li>
 <li>Using both is best (0.761): bureau records add +0.016 on top of behaviour, so the two sources overlap but are not identical.</li>
-<li><strong>Interpretation:</strong> this is the most direct evidence for the project's question. Where a lender has an applicant's repayment behaviour, it can rank risk about as well as if it had bought a bureau record. That is what makes lending to thin-file applicants possible.</li>
+<li><strong>Interpretation:</strong> where a lender holds an applicant's repayment history, it can rank risk about as well as if it had bought a bureau record. This test uses people who have both kinds of record, so it shows that the two sources carry similar information; it does not show how well the model works for someone with no history at all (next section).</li>
 </ul>
 </div>
 </div>
@@ -12591,7 +12591,7 @@ weighted avg       0.89      0.87      0.88     61503
 </tr>
 <tr>
 <td><strong>Interpretation</strong></td>
-<td>A lender's own repayment records can substitute for a bureau record when scoring thin-file applicants.</td>
+<td>For applicants with repayment history (95% of thin-file applicants here), a lender's own records can largely take the place of a bureau record. This is not shown for first-time borrowers with no history.</td>
 </tr>
 <tr>
 <td><strong>Interpretation</strong></td>
@@ -12612,7 +12612,7 @@ weighted avg       0.89      0.87      0.88     61503
 <li><strong>Partial alternative data.</strong> The public data has Home Credit's transaction records of past loans and a few phone signals, but not the full telco and transactional data Home Credit uses, nor mobile-money logs. Results must be re-checked on a lender's own records and on mobile-money data before launch.</li>
 <li><strong>Only approved loans have outcomes.</strong> We never see how <em>declined</em> applicants would have behaved, so the model is untested on them (no "reject inference").</li>
 <li><strong>No dates.</strong> A test on later loans (time order) is not possible; changes in the economy could shift default rates. Monitor monthly after launch.</li>
-<li><strong>First-time borrowers.</strong> 5% of thin-file applicants have no history with Home Credit either; for them the model falls back on the application form only (set A).</li>
+<li><strong>First-time borrowers.</strong> The evidence for behavioural data comes from applicants who have repaid earlier loans. Genuinely first-time borrowers (no bureau record and no repayment history) are only 453 test applicants with 35 defaulters, too few to measure the model reliably (AUC intervals about ±0.07), and they have no behaviour for the model to use. For them the model relies on the application form, and a lender would need other data (for example mobile-money activity) or a small-loan trial to judge them.</li>
 <li><strong>No income inflow records.</strong> The proposal's "inflow regularity" (how steadily money comes in) cannot be measured: the data holds repayments, not incoming payments. Payment-timing regularity (<code>INST_TIMING_IRREGULARITY</code>) is the closest proxy. Real mobile-money inflow data would need to be tested before launch.</li>
 <li><strong>Association, not causation.</strong> Late payment is linked to default; the model does not show that one causes the other.</li>
 </ul>
