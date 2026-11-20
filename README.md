@@ -49,7 +49,9 @@ dataset links them to loan outcomes, so the project tests the idea on the transa
 
   Behaviour minus bureau history: −0.005 (95% CI −0.011 to +0.002). This is the direct evidence that a
   lender with repayment behaviour can score people about as well as one that buys a bureau record.
-- **LightGBM beats the scorecard on every set** (+0.03 to +0.05 AUC, larger for thin-file).
+  It covers applicants who have borrowed before (94.6% of thin-file applicants); genuinely first-time
+  borrowers, with no bureau record and no repayment history, are too few in this data to evaluate.
+- - **LightGBM beats the scorecard on every set** (+0.03 to +0.05 AUC overall, about +0.04 for thin-file).
   The scorecard remains as the transparent, points-based alternative.
 - **Decision rule:** at the cost-optimal threshold (decline if PD ≥ 15.2%, 5:1 cost ratio) the model
   approves 86% of applicants, cuts the default rate among approved loans from 8.1% to 5.1%,
@@ -67,7 +69,9 @@ dataset links them to loan outcomes, so the project tests the idea on the transa
 - **Leakage audit:** bureau-free sets predict thin-file status with only AUC 0.65–0.67 and no
   single feature above 0.80 (`reports/leakage_audit.json`).
 
-Full write-up: `reports/REPORT.pdf`. Metrics tables and figures: [`reports/`](reports/).
+Full write-up: `reports/REPORT.pdf` (it quotes the walkthrough notebook's results, which match the
+pipeline's within 0.02 AUC with the same conclusions). Metrics tables and figures: [`reports/`](reports/).
+Presentation slides: reports/presentation.pdf.
 
 ## Walkthrough notebook
 
@@ -138,13 +142,13 @@ scripts/make_examples.py     builds the example API requests
 
 ## Reproducing from scratch
 
-Requires Python 3.13 and ~8 GB RAM. Full pipeline runtime is about 45 minutes on 2 CPU cores
+Requires Python 3.12 or 3.13 (Docker and CI use 3.13) and ~8 GB RAM. Full pipeline runtime is about 45 minutes on 2 CPU cores
 (10 LightGBM and 3 scorecard models, each with 5-fold CV). Reruns are bit-identical: features are
 built single-threaded and sorted by applicant, and LightGBM runs in deterministic mode.
 
 ```bash
-git clone <this repo> && cd thinfile-credit
-python -m venv .venv && source .venv/bin/activate
+git clone https://github.com/KiraguAnne/thinfile-credit.git && cd thinfile-credit
+python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 make setup
 
 # Download the competition data from Kaggle and put the 7 CSVs in data/raw/:
@@ -164,6 +168,9 @@ Optional tables can be removed from `data/raw/`; the pipeline then runs with tho
 left missing.
 
 Browse experiment runs with `mlflow ui --backend-store-uri sqlite:///mlflow.db`.
+On Windows, `make` is usually not installed: run the stages directly with `python -m thinfile.ingest`,
+`python -m thinfile.features.build`, `python -m thinfile.audit`, `python -m thinfile.train` and
+`python -m thinfile.evaluate` (after setting `PYTHONPATH=src;.`), and open the notebook in VS Code.
 
 ## Running the API
 
